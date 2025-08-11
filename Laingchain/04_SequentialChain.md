@@ -34,13 +34,16 @@ prompt_slogan = PromptTemplate(
 slogan_chain = LLMChain(llm=llm, prompt=prompt_slogan, output_key="slogan")
 
 overall_chain = SequentialChain(
-    chains=[name_chain, slogan_chain])
+    chains=[name_chain, slogan_chain],
+    input_variables = ['product'],
+    output_variables = ['company_name','slogan'])
 
-print(overall_chain.invoke("gucci"))    
+print(overall_chain.invoke('product':"perfume"))    
 
 # output:
+product: perfume
 Company Name: gucci
-Slogan: "fashion like nothing."
+Slogan: "smell like everything."
 
 ```
 
@@ -55,3 +58,4 @@ Slogan: "fashion like nothing."
 - Each chain in the sequence must have clearly defined input and output keys.
 
 - Use SimpleSequentialChain if all chains use the same input/output names.
+
