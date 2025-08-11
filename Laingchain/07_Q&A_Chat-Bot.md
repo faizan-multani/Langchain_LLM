@@ -6,6 +6,7 @@ import os
 import streamlit as st
 from langchain.schema import HumanMessage
 
+# take environment variables from .env
 load_dotenv()
 
 # initialize our strealit app
