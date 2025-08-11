@@ -13,7 +13,6 @@
 
 ## **note** :
 ### These embeddings are generated using embedding models, such as:
-
 - **OpenAI** (text-embedding-3-small, text-embedding-ada-002, etc.)
 
 - **Hugging Face models** (e.g., sentence-transformers)
