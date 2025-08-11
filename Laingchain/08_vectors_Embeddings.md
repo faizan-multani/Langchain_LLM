@@ -89,3 +89,5 @@ for doc in docs_relevant:
 - **The number of returned chunks (k=3) can be changed.**
 
 - **The semantic similarity depends on the embedding model — here, it's OpenAI's**.
+
+![](assets/Vectors-embeddings.png)
