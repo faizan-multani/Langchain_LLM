@@ -1,4 +1,4 @@
-m# Prompt_Template :
+# Prompt_Template :
 - In LangChain, a PromptTemplate is a way to <mark>**dynamically construct prompts**</mark> that you send to an LLM (like GPT-4). It helps you separate static parts of your prompt from the dynamic variables you want to insert later.
 
 ## Why Use PromptTemplate ?
