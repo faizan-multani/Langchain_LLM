@@ -35,11 +35,96 @@
 
 ### **4.** When a user asks a question:
 
-- **.** The question is embedded into a vector
+- **1.** The question is embedded into a vector.
 
-- **1.** That vector is used to find similar vectors (chunks) in the vector store
+- **2.** That vector is used to find similar vectors (chunks) in the vector store.
 
-- **1.** The retrieved chunks are fed to the LLM for answering the question
+- **3.** The retrieved chunks are fed to the LLM for answering the question. 
+
+## RAG : 
+### RAG combines two key steps :
+
+- Retrieval: First, relevant documents or chunks of information are fetched from an external data source (like a vector store, PDF, database, etc.) based on the user’s query.
+
+- Generation: Then, a language model (like OpenAI's GPT) is used to generate a response using the retrieved information as context.
+
+## Why use RAG ?
+
+- Keeps your application up-to-date with external data
+
+- Reduces hallucinations (i.e., the model making stuff up)
+
+- Lets you build powerful question-answering systems over custom data
+
+## How RAG works in LangChain :
+### LangChain provides tools and abstractions to implement RAG systems easily. Here’s a high-level breakdown :
+
+### 1. Document Loading :
+
+- Use DocumentLoaders to bring in data from PDFs, Notion, websites, CSVs, etc.
+```
+from langchain.document_loaders import PyPDFLoader
+
+loader = PyPDFLoader("myfile.pdf")
+documents = loader.load()
+
+```
+
+## 2. Text Splitting :
+
+- Split large documents into smaller chunks for better indexing and retrieval.
+```
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+docs = text_splitter.split_documents(documents)
+
+```
+
+## 3. Embeddings + Vector Store :
+
+- Convert the text into embeddings and store them in a vector database (e.g., FAISS, Chroma, Pinecone).
+```
+from langchain.vectorstores import FAISS
+from langchain.embeddings.openai import OpenAIEmbeddings
+
+embeddings = OpenAIEmbeddings()
+db = FAISS.from_documents(docs, embeddings)
+```
+
+## 4. Retriever :
+
+- This is used to search for relevant chunks based on a query.
+```
+retriever = db.as_retriever()
+```
+
+## 5. Prompt + LLM Chain :
+
+- Feed the retrieved documents into an LLM using a prompt template.
+```
+from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(),
+    retriever=retriever,
+    return_source_documents=True
+)
+
+```
+
+## 6. Ask Questions :
+
+- Finally, you can ask your RAG-powered app questions!
+```
+query = "What is the main idea of the document?"
+result = qa_chain({"query": query})
+
+print(result["result"])
+
+```
+![](assets/RAG.png)
 
 ```
 from langchain.embeddings import OpenAIEmbeddings
@@ -91,3 +176,4 @@ for doc in docs_relevant:
 - **The semantic similarity depends on the embedding model — here, it's OpenAI's**.
 
 ![](assets/Vectors-embeddings.png)
+![](assets/RAG_2.png)
