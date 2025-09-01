@@ -1,4 +1,4 @@
-# Vectors and Emobeddings :
+# Vectors and Embeddings :
 - In LangChain, embeddings and vector stores are **<mark>mostly used to search and retrieve relevant text for a given query </mark>** — and yes, this is often based on reading from files or databases, but that's just the starting point.
 
 # Embeddings :
